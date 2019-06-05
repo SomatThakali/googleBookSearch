@@ -1,13 +1,11 @@
 import React from "react";
 import "./style.css";
-
+import logo from "../../google.png";
 const Nav = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-light">
-      <img src="https://img.icons8.com/color/22/000000/google-logo.png" />
-      <a className="navbar-brand text pl-1" href="/">
-        Books
-      </a>
+      <img className="img img-fluid " src={logo} />
+
       <ul className="mr-auto">
         <li>
           <a href="/">Search</a>

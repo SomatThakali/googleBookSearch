@@ -32,3 +32,8 @@ li a {
     padding-left: 5px;
   }
 }
+
+nav .img {
+  max-width: 110px;
+  margin-top: 4px;
+}
