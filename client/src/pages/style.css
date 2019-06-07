@@ -1,0 +1,47 @@
+.container-fluid {
+  padding-left: 170px !important;
+  margin-bottom: 40px;
+}
+
+.bookimg {
+  height: 80px;
+  width: 53px;
+}
+
+.col-md-3 {
+  padding-right: 0px !important;
+}
+
+.desc {
+  line-height: 1.4;
+  word-wrap: break-word;
+  font-family: arial, sans-serif;
+  font-size: small;
+  color: #545454;
+}
+
+h6 {
+  font-size: 18px;
+}
+.title {
+  cursor: pointer;
+  color: #1a0dab;
+}
+
+.link {
+  font-size: 14px;
+  padding-top: 1px;
+  color: #006621;
+  cursor: pointer;
+}
+
+.author {
+  color: #1a0dab;
+  font-family: "Roboto", arial, sans-serif;
+  font-size: 15px;
+}
+
+.col-sm-1 {
+  padding-left: 10px;
+  padding-right: 0px;
+}
