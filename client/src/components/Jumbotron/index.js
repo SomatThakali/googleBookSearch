@@ -2,7 +2,7 @@ import React from "react";
 import { Input, FormBtn } from "../Form";
 import "./style.css";
 import logo from "../../google.png";
-const Jumbotron = () => {
+const Jumbotron = ({ q, handleInputChange, handleFormSubmit }) => {
   return (
     <div
       style={{
@@ -19,13 +19,19 @@ const Jumbotron = () => {
       }}
       className="jumbotron"
     >
-      <img className="img img-fluid " src={logo} />
+      <img className="img img-fluid " src={logo} alt="logo" />
 
       <h6 className="mt-4 mb-5 pb-4">Search and save Books of the internet</h6>
       <form>
-        <Input name="title" placeholder="Books" />
-
-        <FormBtn>Search</FormBtn>
+        <Input
+          value={q}
+          name="query"
+          onChange={handleInputChange}
+          placeholder="Books"
+        />
+        <FormBtn onClick={handleFormSubmit} type="submit">
+          Book Search
+        </FormBtn>
       </form>
     </div>
   );
