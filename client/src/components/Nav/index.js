@@ -4,7 +4,9 @@ import logo from "../../google.png";
 const Nav = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-light">
-      <img className="img img-fluid " src={logo} />
+      <a href="/">
+        <img className="img img-fluid " src={logo} alt="logo" />{" "}
+      </a>
 
       <ul className="mr-auto">
         <li>
