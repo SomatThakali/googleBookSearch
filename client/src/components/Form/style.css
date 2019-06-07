@@ -7,3 +7,12 @@
   box-shadow: 2px 2px #ebebeb;
   border-radius: 100px;
 }
+
+.button {
+  color: #777;
+}
+
+.button:hover {
+  color: #777;
+  border: 1px solid #777;
+}
