@@ -13,20 +13,6 @@ class Search extends Component {
     error: " "
   };
 
-  componentDidMount() {
-    this.getSearchedBooks();
-  }
-
-  getSearchedBooks = query => {
-    if (query) {
-      API.getSearchedBooks(query)
-        .then(res => {
-          this.setState({ books: res.data.items });
-        })
-        .catch(err => console.log(err));
-    }
-  };
-
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -38,21 +24,21 @@ class Search extends Component {
     event.preventDefault();
     API.getSearchedBooks(this.state.query)
       .then(res => {
-        let results = res.data.items;
-        results = results.map(result => {
-          result = {
-            key: result.id,
-            id: result.id,
-            title: result.volumeInfo.title,
-            author: result.volumeInfo.authors,
-            description: result.volumeInfo.description,
-            image: result.volumeInfo.imageLinks.thumbnail,
-            link: result.volumeInfo.infoLink
+        let books = res.data.items;
+        books = books.map(book => {
+          book = {
+            key: book.id,
+            id: book.id,
+            title: book.volumeInfo.title,
+            author: book.volumeInfo.authors,
+            description: book.volumeInfo.description,
+            image: book.volumeInfo.imageLinks.thumbnail,
+            link: book.volumeInfo.infoLink
           };
-          return result;
+          return book;
         });
 
-        this.setState({ books: results, error: "" });
+        this.setState({ books: books, error: "" });
       })
       .catch(err => this.setState({ error: err.items }));
   };
@@ -62,7 +48,6 @@ class Search extends Component {
     let savedBooks = this.state.books.filter(
       book => book.id === event.target.id
     );
-    savedBooks = savedBooks[0];
     API.saveBook(savedBooks)
       .then(this.setState({ message: alert("Your book is saved") }))
       .catch(err => console.log(err));
