@@ -2,11 +2,11 @@ import React from "react";
 import { Container, Row, Col } from "../Grid";
 
 const Card = props => {
-  return props.books.length === 0 ? (
+  return props.savedBooks.length === 0 ? (
     <div />
   ) : (
     <div>
-      {props.books.map(book => {
+      {props.savedBooks.map(book => {
         return (
           <Container fluid>
             <Row>
@@ -35,10 +35,10 @@ const Card = props => {
               <Col size="md-1">
                 <button
                   className=" btn button"
-                  id={book.id}
-                  onClick={event => props.handleSavedButton(event)}
+                  id={book._id}
+                  onClick={() => props.handleDeleteButton(book._id)}
                 >
-                  Save
+                  Delete
                 </button>
               </Col>
             </Row>
@@ -48,4 +48,5 @@ const Card = props => {
     </div>
   );
 };
+
 export default Card;

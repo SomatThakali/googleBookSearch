@@ -2,23 +2,26 @@ import React, { Component } from "react";
 import API from "../utils/API";
 import Jumbotron from "../components/Jumbotron";
 import Card from "../components/Card";
+import SaveBtn from "../components/SaveBtn";
 import "./style.css";
 
 class Search extends Component {
   state = {
     query: "",
-    results: []
+    books: [],
+    message: "",
+    error: " "
   };
 
   componentDidMount() {
-    this.getBooks();
+    this.getSearchedBooks();
   }
 
-  getBooks = query => {
+  getSearchedBooks = query => {
     if (query) {
       API.getSearchedBooks(query)
         .then(res => {
-          this.setState({ results: res.data.items });
+          this.setState({ books: res.data.items });
         })
         .catch(err => console.log(err));
     }
@@ -33,11 +36,39 @@ class Search extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    this.setState({
-      query: ""
-    });
-    this.getBooks(this.state.query);
+    API.getSearchedBooks(this.state.query)
+      .then(res => {
+        let results = res.data.items;
+        results = results.map(result => {
+          result = {
+            key: result.id,
+            id: result.id,
+            title: result.volumeInfo.title,
+            author: result.volumeInfo.authors,
+            description: result.volumeInfo.description,
+            image: result.volumeInfo.imageLinks.thumbnail,
+            link: result.volumeInfo.infoLink
+          };
+          return result;
+        });
+
+        this.setState({ books: results, error: "" });
+      })
+      .catch(err => this.setState({ error: err.items }));
   };
+
+  handleSavedButton = event => {
+    event.preventDefault();
+    console.log(this.state.books);
+    let savedBooks = this.state.books.filter(
+      book => book.id === event.target.id
+    );
+    savedBooks = savedBooks[0];
+    API.saveBook(savedBooks)
+      .then(this.setState({ message: alert("Your book is saved") }))
+      .catch(err => console.log(err));
+  };
+
   render() {
     return (
       <div>
@@ -47,16 +78,10 @@ class Search extends Component {
           q={this.state.query}
         />
 
-        {this.state.results.map(book => (
-          <Card
-            key={book.id}
-            title={book.volumeInfo.title}
-            authors={book.volumeInfo.authors}
-            description={book.volumeInfo.description}
-            img={book.volumeInfo.imageLinks.thumbnail}
-            link={book.volumeInfo.infoLink}
-          />
-        ))}
+        <Card
+          books={this.state.books}
+          handleSavedButton={this.handleSavedButton}
+        />
       </div>
     );
   }
