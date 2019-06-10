@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import API from "../utils/API";
 import Jumbotron from "../components/Jumbotron";
 import Card from "../components/Card";
-import SaveBtn from "../components/SaveBtn";
+
 import "./style.css";
 
 class Search extends Component {
