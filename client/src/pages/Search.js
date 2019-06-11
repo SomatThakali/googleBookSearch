@@ -22,25 +22,32 @@ class Search extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
+    console.log("[DEBUG] query", this.state.query);
     API.getSearchedBooks(this.state.query)
       .then(res => {
-        let books = res.data.items;
-        books = books.map(book => {
-          book = {
-            key: book.id,
-            id: book.id,
-            title: book.volumeInfo.title,
-            author: book.volumeInfo.authors,
-            description: book.volumeInfo.description,
-            image: book.volumeInfo.imageLinks.thumbnail,
-            link: book.volumeInfo.infoLink
+        console.log("[DEBUG] response data", res.data.items);
+        const books = res.data.items.map(item => {
+          console.log("[DEBUG] imageLinks", item.volumeInfo.imageLinks);
+          const book = {
+            key: item.id,
+            id: item.id,
+            title: item.volumeInfo.title,
+            author: item.volumeInfo.authors,
+            description: item.volumeInfo.description,
+            image: !!item.volumeInfo.imageLinks
+              ? item.volumeInfo.imageLinks.thumbnail
+              : "https://place-hold.it/53x80",
+            link: item.volumeInfo.infoLink
           };
           return book;
         });
-
+        console.log("[DEBUG] books", books);
         this.setState({ books: books, error: "" });
       })
-      .catch(err => this.setState({ error: err.items }));
+      .catch(err => {
+        console.log("[DEBUG] error handling response", err);
+        this.setState({ error: err.items });
+      });
   };
 
   handleSavedButton = event => {
@@ -54,6 +61,7 @@ class Search extends Component {
   };
 
   render() {
+    console.log("[DEBUG] books at render", this.state.books);
     return (
       <div>
         <Jumbotron
