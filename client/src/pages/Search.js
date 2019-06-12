@@ -42,7 +42,7 @@ class Search extends Component {
           return book;
         });
         console.log("[DEBUG] books", books);
-        this.setState({ books: books, error: "" });
+        this.setState({ books: books, error: "", query: "" });
       })
       .catch(err => {
         console.log("[DEBUG] error handling response", err);
