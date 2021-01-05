@@ -20,7 +20,7 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
     "if-env": "1.0.4",
-    "axios": "0.18.0",
+    "axios": "0.21.1",
     "mongoose": "5.3.16"
   },
   "devDependencies": {
